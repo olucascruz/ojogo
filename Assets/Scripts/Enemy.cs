@@ -45,16 +45,17 @@ public class Enemy : MonoBehaviour
     {
         if(col.gameObject.tag == "Player"){
 
-        float height = col.contacts[0].point.y - headPoint.position.y;
+            float height = col.contacts[0].point.y - headPoint.position.y;
+            Debug.Log(height.ToString());
 
 
-        if(height > 0)
-        {
-            col.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 10, ForceMode2D.Impulse);
-            speed = 0;
-            anim.SetTrigger("die");
-            Destroy(gameObject, 0.26f);
-        }
+            if(height > 0)
+            {
+                col.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+                speed = 0;
+                anim.SetTrigger("die");
+                Destroy(gameObject, 0.26f);
+            }   
         
         }
     
