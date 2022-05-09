@@ -41,21 +41,26 @@ public class Enemy : MonoBehaviour
         
     }
 
+    bool playerDestroyerd;
     void OnCollisionEnter2D(Collision2D col)
     {
         if(col.gameObject.tag == "Player"){
 
             float height = col.contacts[0].point.y - headPoint.position.y;
-            Debug.Log(height.ToString());
 
-
-            if(height > 0)
+            if(height > 0 && !playerDestroyerd)
             {
-                col.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+                col.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 5, ForceMode2D.Impulse);
                 speed = 0;
                 anim.SetTrigger("die");
+                
                 Destroy(gameObject, 0.26f);
-            }   
+            }else
+            {
+                playerDestroyerd = true;
+                GameController.instance.ShowGameOver();
+                Destroy(col.gameObject);
+            }
         
         }
     
